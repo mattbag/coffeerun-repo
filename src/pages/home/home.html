@@ -1,11 +1,12 @@
 <ion-header>
   <ion-navbar color="dark">
-    <ion-title color="light">
-      Coffee Run - Time left:
+    <ion-title>
+      Coffee Run
+      <span *ngIf="running"> - Time left {{timer | date: 'mm:ss'}} </span>
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="presentActionSheet()">
-      <ion-icon name="more" color="light"></ion-icon>
+      <ion-icon name="more" color="primary"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -40,6 +41,6 @@
     </ion-item-sliding>
   </ion-list>
   <ion-fab bottom right>
-   <button ion-fab (click)="addItem()" color="secondary"><ion-icon name="add"></ion-icon></button>
+   <button ion-fab (click)="startRun()" color="secondary"><ion-icon name="alarm"></ion-icon></button>
  </ion-fab>
 </ion-content>

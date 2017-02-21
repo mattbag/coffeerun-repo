@@ -1,64 +1,82 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController, ActionSheetController, Events } from 'ionic-angular';
+import { ModalController, NavController, ActionSheetController } from 'ionic-angular';
 import { AddItemPage } from '../add-item/add-item';
-import { EditItemPage } from '../edit-item/edit-item';
+// import { EditItemPage } from '../edit-item/edit-item';
 import { ItemDetailPage } from '../item-detail/item-detail';
 import { AboutPage } from '../about/about';
-import { Data } from '../../providers/data';
+// import { Data } from '../../providers/data';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public oneDeleted: boolean;
+
   public items = [];
+  public addModal = this.modalCtrl.create(AddItemPage);
+  public timer: any;
+  public running: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
-    public dataService: Data,
+    // public dataService: Data,
     public actionSheetCtrl: ActionSheetController,
   ) {
 
-    this.dataService.getData().then((todos) => {
+    // Observable.interval(1000)
+    //         .map((x) => x+1)
+    //         .subscribe((x) => {
+    //           this.timer = (60 * 5 - x) *1000;
+    //         })
 
-      if (todos) {
-        this.items = JSON.parse(todos);
-      }
-
-    });
 
   }
-
-startRun(){
-  console.log('Coffee run start');
-}
+  ionViewDidLoad() {
+    // if user has no coffee and there is time, pop open this
+    // this.addModal.present();
+  }
+  startTimer() {
+    Observable.interval(1000)
+      .map((x) => x + 1)
+      .subscribe((x) => {
+        this.timer = (60 * 5 - x) * 1000;
+        if (this.timer === 0) {
+          console.log('time over');
+          this.running = false;
+        }
+      })
+  }
+  startRun() {
+    // console.log('Coffee run start');
+    this.running = true;
+    this.startTimer();
+  }
   addItem() {
 
-    let addModal = this.modalCtrl.create(AddItemPage);
+    this.addModal.onDidDismiss((item) => {
 
-    addModal.onDidDismiss((item) => {
-
-      if (item) {
-        this.saveItem(item);
-      }
+      // if (item) {
+      //   this.saveItem(item);
+      // }
 
     });
 
-    addModal.present();
+    this.addModal.present();
 
   }
 
+
   // editItem(item,index) {
-  
+
   //   let editModal = this.modalCtrl.create(EditItemPage, {item: item, index: index});
 
   //   editModal.onDidDismiss((item) => {
   //       console.log(item);
   //     if (item) {
   //       console.log('quak');
-        
+
   //       this.updateItem(item);
   //     }
 
@@ -68,24 +86,18 @@ startRun(){
 
   // }
   uncheck(item) {
-    item.isDone = false;
-    this.dataService.save(this.items);
+
   }
   saveItem(item) {
-    this.items.push(item);
-    this.dataService.save(this.items);
+
   }
-   updateItem(item) {
-     console.log(item);
-     
-    this.items[item.index]=item;
-    this.dataService.save(this.items);
+  updateItem(item) {
+    console.log(item);
+
+
   }
   removeItem(item) {
-    let index = this.items.indexOf(item);
-    //  console.log(index);
-    this.items.splice(index, 1);
-    this.dataService.save(this.items);
+
   }
 
   viewItem(item) {
@@ -139,10 +151,10 @@ startRun(){
       // console.log(item);
       if (percent < -1) {
         // console.log(this.items[index]);
-        if (!this.items[index].isDone) {
-          this.items[index].isDone = true;
-          this.dataService.save(this.items);
-        }
+        // if (!this.items[index].isDone) {
+        //   // this.items[index].isDone = true;
+        //   // this.dataService.save(this.items);
+        // }
 
         setTimeout(() => {
           event.close();
@@ -173,6 +185,9 @@ startRun(){
           // role: 'destructive',
           handler: () => {
             console.log('Retsart timer');
+            this.running = false;
+            this.timer = 0;
+            this.startTimer();
           }
         },
         {
@@ -180,6 +195,7 @@ startRun(){
           // role: 'destructive',
           handler: () => {
             console.log('Cancel run');
+            this.running = false;
           }
         },
         {
