@@ -37,7 +37,7 @@ export class HomePage {
   ionViewDidLoad() {
     // if user has no coffee and there is time, pop open this
     // this.addModal.present();
-    // this.addCoffee();
+    this.addCoffee();
   }
   startTimer() {
     Observable.interval(1000)
@@ -103,7 +103,7 @@ let prompt = this.alertCtrl.create({
     
     // let itemObservable = this.af.database.object('/users');
     // console.log(itemObservable);
-    
+  
     this.users.update(user.$key,{ isDone: !user.isDone });
   }
   // saveItem(item) {
