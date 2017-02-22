@@ -10162,7 +10162,7 @@ ion-item-group .item-md .item-wrapper:last-child .item-inner {
 .item-divider-md {
   padding-left: 0;
   color: #858585;
-  background-color: #fff;
+  background-color: #1F0000;
   border-bottom: 1px solid #dedede;
   font-size: 1.4rem;
 }
@@ -21274,13 +21274,18 @@ sub {
 
 ion-app ion-item {
   min-height: 50px !important;
+  background-color: #1F0000 !important;
 }
 
-ion-app .toast-md .toast-wrapper, ion-app .toast-ios .toast-wrapper, ion-app .toast-wp .toast-wrapper {
+ion-app .toast-md .toast-wrapper,
+ion-app .toast-ios .toast-wrapper,
+ion-app .toast-wp .toast-wrapper {
   width: 95%;
 }
 
-ion-app .toast-md .toast-wrapper.toast-top, ion-app .toast-ios .toast-wrapper.toast-top, ion-app .toast-wp .toast-wrapper.toast-top {
+ion-app .toast-md .toast-wrapper.toast-top,
+ion-app .toast-ios .toast-wrapper.toast-top,
+ion-app .toast-wp .toast-wrapper.toast-top {
   top: 10px;
 }
 
