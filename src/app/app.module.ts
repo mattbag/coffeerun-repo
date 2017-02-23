@@ -6,6 +6,7 @@ import { AddItemPage } from '../pages/add-item/add-item';
 import { EditItemPage } from '../pages/edit-item/edit-item';
 import { ItemDetailPage } from '../pages/item-detail/item-detail';
 import { AboutPage } from '../pages/about/about';
+import {CrTimerComponent} from '../components/cr-timer/cr-timer';
 // import {Storage} from '@ionic/storage';
 // import { Data } from '../providers/data';
 
@@ -26,7 +27,8 @@ export const firebaseConfig = {
     AddItemPage,
     ItemDetailPage,
     EditItemPage,
-    AboutPage
+    AboutPage,
+    CrTimerComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -39,7 +41,8 @@ export const firebaseConfig = {
     AddItemPage,
     ItemDetailPage,
     EditItemPage,
-    AboutPage
+    AboutPage,
+    CrTimerComponent
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

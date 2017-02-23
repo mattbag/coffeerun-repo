@@ -2,8 +2,10 @@
   <ion-navbar>
     <ion-title>
       Coffee Run
-      <span *ngIf="running"> - Time left {{timer | date: 'mm:ss'}} </span>
+    <!--<span *ngIf="running"> - Time left {{timer | date: 'mm:ss'}} </span>-->
+      <cr-timer *ngIf="running" [time]="1"></cr-timer>
     </ion-title>
+    
     <ion-buttons end>
       <button ion-button icon-only (click)="presentActionSheet()">
       <ion-icon name="more" color="primary"></ion-icon>
@@ -18,7 +20,7 @@
     <ion-item *ngFor="let user of users | async ; let index = index" (click)="toggleCheck(user)">
 
       <h2>{{user?.coffee}}</h2>
-      <h3>for {{user?.name}}</h3>
+      <h3>- for {{user?.user}}</h3>
       <!--<ion-icon name="information-circle" color="danger" item-right *ngIf="user?.description"></ion-icon>-->
       <ion-icon name="checkmark-circle" color="secondary" item-right *ngIf="user.isDone"></ion-icon>
     </ion-item>

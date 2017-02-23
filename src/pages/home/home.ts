@@ -4,8 +4,9 @@ import { ModalController, NavController, ActionSheetController, AlertController 
 // import { EditItemPage } from '../edit-item/edit-item';
 // import { ItemDetailPage } from '../item-detail/item-detail';
 import { AboutPage } from '../about/about';
+// import {CrTimerComponent} from '../../components/cr-timer/cr-timer';
 // import { Data } from '../../providers/data';
-import { Observable } from 'rxjs/Rx';
+// import { Observable } from 'rxjs/Rx';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 @Component({
@@ -16,9 +17,9 @@ export class HomePage {
 
   // public items = [];
   // public addModal = this.modalCtrl.create(AddItemPage);
-  public timer: any;
+  // public timer: any;
   public running: boolean = false;
-  public coffees: FirebaseListObservable<any>;
+  // public coffees: FirebaseListObservable<any>;
   public users: FirebaseListObservable<any>;
   
   constructor(
@@ -29,7 +30,7 @@ export class HomePage {
     public af: AngularFire,
     public alertCtrl: AlertController
   ) {
-      this.coffees = af.database.list('/coffees');
+      // this.coffees = af.database.list('/coffees');
       this.users = af.database.list('/users');
       // console.log(this.coffees);
       
@@ -39,24 +40,25 @@ export class HomePage {
     // this.addModal.present();
     this.addCoffee();
   }
-  startTimer() {
-    Observable.interval(1000)
-      .map((x) => x + 1)
-      .subscribe((x) => {
-        this.timer = (60 * 5 - x) * 1000;
-        if (this.timer === 0) {
-          console.log('time over');
-          this.running = false;
-        }
-      })
-  }
+  // startTimer() {
+  //   Observable.interval(1000)
+  //     .map((x) => x + 1)
+  //     .subscribe((x) => {
+  //       this.timer = (60 * 5 - x) * 1000;
+  //       if (this.timer === 0) {
+  //         console.log('time over');
+  //         this.running = false;
+  //       }
+  //     })
+  // }
   startRun() {
     // console.log('Coffee run start');
     this.running = true;
-    this.startTimer();
+    // this.startTimer();
   }
   stopRun() {
     console.log('Coffee run deleted');
+     this.running = false;
     // this.running = true;
     // this.startTimer();
   }
@@ -64,11 +66,15 @@ export class HomePage {
 addCoffee(){
 let prompt = this.alertCtrl.create({
     title: 'Howdy!',
-    message: "So which coffee would you like?",
+    // message: "So which coffee would you like?",
     inputs: [
       {
+        name: 'name',
+        placeholder: 'Who are you?'
+      },
+      {
         name: 'coffee',
-        placeholder: 'Hit me!'
+        placeholder: '...and what would you like?'
       },
     ],
     buttons: [
@@ -82,8 +88,8 @@ let prompt = this.alertCtrl.create({
         text: 'Save',
         handler: data => {
           this.users.push({
-            name: 'user', 
-            // user: data.user,
+            // name: 'user', 
+            user: data.name,
             coffee: data.coffee,
             isDone: false
           });
@@ -129,14 +135,32 @@ let prompt = this.alertCtrl.create({
     let actionSheet = this.actionSheetCtrl.create({
       // title: 'More Actions',
       buttons: [
+        // {
+        //   text: 'Restart Timer',
+        //   // role: 'destructive',
+        //   handler: () => {
+        //     console.log('Restart timer');
+        //     this.running = false;
+        //     // this.stopRun();
+        //     // no restarting??
+        //     this.running = true;
+        //     // this.startRun();
+        //     // this.timer = 0;
+        //     // this.startTimer();
+        //   }
+        // },
         {
-          text: 'Restart Timer',
+          text: 'Add 5 mins',
           // role: 'destructive',
           handler: () => {
-            console.log('Retsart timer');
-            this.running = false;
-            this.timer = 0;
-            this.startTimer();
+            console.log('adding time');
+            // this.running = false;
+            // this.stopRun();
+            // no restarting??
+            // this.running = true;
+            // this.startRun();
+            // this.timer = 0;
+            // this.startTimer();
           }
         },
         {

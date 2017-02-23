@@ -7493,7 +7493,7 @@ ion-card-content {
 .item.item-ios .checkbox-ios {
   position: static;
   display: block;
-  margin: 8px 16px 8px 2px;
+  margin: 8px 0 8px 2px;
 }
 
 .item.item-ios .checkbox-ios[item-right] {
@@ -7694,7 +7694,7 @@ ion-card-content {
 .item.item-wp .checkbox-wp {
   position: static;
   display: block;
-  margin: 9px 16px 9px 4px;
+  margin: 9px 0 9px 4px;
 }
 
 .item.item-wp .checkbox-wp[item-right] {
@@ -8334,15 +8334,15 @@ ion-datetime {
 }
 
 .datetime-ios {
-  padding: 11px 8px 11px 0;
+  padding: 11px 0 11px 0;
 }
 
 .datetime-md {
-  padding: 13px 8px 13px 0;
+  padding: 13px 0 13px 0;
 }
 
 .datetime-wp {
-  padding: 13px 8px 13px 0;
+  padding: 13px 0 13px 0;
   min-width: 45%;
 }
 
@@ -9265,14 +9265,14 @@ ion-input[disabled] .input-cover {
 }
 
 .text-input-ios {
-  margin: 11px 8px 11px 0;
+  margin: 11px 0 11px 0;
   padding: 0;
-  width: calc(100% - 8px);
+  width: calc(100% - 0);
 }
 
 .input-ios .inset-input {
-  margin: 5.5px 16px 5.5px 0;
-  padding: 5.5px 8px 5.5px 0;
+  margin: 5.5px 0 5.5px 0;
+  padding: 5.5px 0 5.5px 0;
 }
 
 .item-ios.item-label-stacked .text-input,
@@ -9280,7 +9280,7 @@ ion-input[disabled] .input-cover {
   margin-top: 8px;
   margin-bottom: 8px;
   margin-left: 0;
-  width: calc(100% - 8px);
+  width: calc(100% - 0);
 }
 
 .item-ios.item-label-stacked .label-ios + .input + .cloned-input,
@@ -9305,20 +9305,20 @@ ion-input[disabled] .input-cover {
 
 .input-ios .text-input-clear-icon {
   background-image: url("data:image/svg+xml;charset=utf-8,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><path%20fill='rgba(0,%200,%200,%200.5)'%20d='M403.1,108.9c-81.2-81.2-212.9-81.2-294.2,0s-81.2,212.9,0,294.2c81.2,81.2,212.9,81.2,294.2,0S484.3,190.1,403.1,108.9z%20M352,340.2L340.2,352l-84.4-84.2l-84,83.8L160,339.8l84-83.8l-84-83.8l11.8-11.8l84,83.8l84.4-84.2l11.8,11.8L267.6,256L352,340.2z'/></svg>");
-  right: 8px;
+  right: 0;
   width: 30px;
   background-size: 18px;
 }
 
 .text-input-md {
-  margin: 13px 8px 13px 0;
+  margin: 13px 0 13px 0;
   padding: 0;
-  width: calc(100% - 8px - 0);
+  width: calc(100% - 0 - 0);
 }
 
 .input-md .inset-input {
-  margin: 6.5px 16px 6.5px 0;
-  padding: 6.5px 8px 6.5px 0;
+  margin: 6.5px 0 6.5px 0;
+  padding: 6.5px 0 6.5px 0;
 }
 
 .item-md.item-input.input-has-focus .item-inner {
@@ -9368,7 +9368,7 @@ ion-input[disabled] .input-cover {
   margin-top: 8px;
   margin-bottom: 8px;
   margin-left: 0;
-  width: calc(100% - 8px);
+  width: calc(100% - 0);
 }
 
 .item-label-stacked .select-md,
@@ -9388,22 +9388,22 @@ ion-input[disabled] .input-cover {
 
 .input-md .text-input-clear-icon {
   background-image: url("data:image/svg+xml;charset=utf-8,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><polygon%20fill='%235b5b5b'%20points='405,136.798%20375.202,107%20256,226.202%20136.798,107%20107,136.798%20226.202,256%20107,375.202%20136.798,405%20256,285.798%20375.202,405%20405,375.202%20285.798,256'/></svg>");
-  right: 8px;
+  right: 0;
   width: 30px;
   background-size: 22px;
 }
 
 .text-input-wp {
-  margin: 13px 8px 13px 0;
+  margin: 13px 0 13px 0;
   padding: 0 8px;
-  width: calc(100% - 8px - 0);
+  width: calc(100% - 0 - 0);
   border: 2px solid rgba(0, 0, 0, 0.5);
   line-height: 3rem;
 }
 
 .item-wp .inset-input {
-  margin: 6.5px 16px 6.5px 0;
-  padding: 6.5px 8px 6.5px 0;
+  margin: 6.5px 0 6.5px 0;
+  padding: 6.5px 0 6.5px 0;
 }
 
 .item-wp.item-input.input-has-focus .text-input {
@@ -9425,7 +9425,7 @@ ion-input[disabled] .input-cover {
   margin-top: 8px;
   margin-bottom: 8px;
   margin-left: 0;
-  width: calc(100% - 8px);
+  width: calc(100% - 0);
 }
 
 .item-wp.item-label-stacked [item-right],
@@ -9445,7 +9445,7 @@ ion-input[disabled] .input-cover {
 
 .input-wp .text-input-clear-icon {
   background-image: url("data:image/svg+xml;charset=utf-8,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><polygon%20fill='rgba(0,%200,%200,%200.5)'%20points='405,136.798%20375.202,107%20256,226.202%20136.798,107%20107,136.798%20226.202,256%20107,375.202%20136.798,405%20256,285.798%20375.202,405%20405,375.202%20285.798,256'/></svg>");
-  right: 8px;
+  right: 0;
   width: 30px;
   background-size: 22px;
 }
@@ -9838,7 +9838,7 @@ ion-item-sliding.active-swipe-left button[expandable] {
 }
 
 .item-ios.item-block .item-inner {
-  padding-right: 8px;
+  padding-right: 0;
   border-bottom: 0.55px solid #000;
 }
 
@@ -9847,7 +9847,7 @@ ion-item-sliding.active-swipe-left button[expandable] {
 }
 
 .item-ios [item-right] {
-  margin: 8px 0 8px 8px;
+  margin: 8px 0 8px 0;
 }
 
 .item-ios ion-icon[item-left],
@@ -9870,12 +9870,12 @@ ion-item-sliding.active-swipe-left button[expandable] {
 
 .item-ios ion-avatar[item-left],
 .item-ios ion-thumbnail[item-left] {
-  margin: 8px 16px 8px 0;
+  margin: 0 0 0 0;
 }
 
 .item-ios ion-avatar[item-right],
 .item-ios ion-thumbnail[item-right] {
-  margin: 8px;
+  margin: 0;
 }
 
 .item-ios ion-avatar {
@@ -9908,7 +9908,7 @@ a.item-ios:not([detail-none]) .item-inner {
   background-image: url("data:image/svg+xml;charset=utf-8,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2012%2020'><path%20d='M2,20l-2-2l8-8L0,2l2-2l10,10L2,20z'%20fill='%23000'/></svg>");
   padding-right: 32px;
   background-repeat: no-repeat;
-  background-position: right 14px center;
+  background-position: right -2 center;
   background-size: 14px 14px;
 }
 
@@ -10084,13 +10084,13 @@ ion-item-group .item-wrapper:last-child .item-ios .item-inner {
 }
 
 .item-md.item-block .item-inner {
-  padding-right: 8px;
+  padding-right: 0;
   border-bottom: 1px solid #dedede;
 }
 
 .item-md [item-left],
 .item-md [item-right] {
-  margin: 9px 8px 9px 0;
+  margin: 9px 0 9px 0;
 }
 
 .item-md ion-icon[item-left],
@@ -10118,12 +10118,12 @@ ion-item-group .item-wrapper:last-child .item-ios .item-inner {
 
 .item-md ion-avatar[item-left],
 .item-md ion-thumbnail[item-left] {
-  margin: 8px 16px 8px 0;
+  margin: 0 0 0 0;
 }
 
 .item-md ion-avatar[item-right],
 .item-md ion-thumbnail[item-right] {
-  margin: 8px;
+  margin: 0;
 }
 
 .item-md ion-avatar {
@@ -10328,13 +10328,13 @@ ion-item-group .item-md .item-wrapper:last-child .item-inner {
 }
 
 .item-wp.item-block .item-inner {
-  padding-right: 8px;
+  padding-right: 0;
   border-bottom: 1px solid transparent;
 }
 
 .item-wp [item-left],
 .item-wp [item-right] {
-  margin: 9px 8px 9px 0;
+  margin: 9px 0 9px 0;
 }
 
 .item-wp ion-icon[item-left],
@@ -10367,12 +10367,12 @@ ion-item-group .item-md .item-wrapper:last-child .item-inner {
 
 .item-wp ion-avatar[item-left],
 .item-wp ion-thumbnail[item-left] {
-  margin: 8px 16px 8px 0;
+  margin: 0 0 0 0;
 }
 
 .item-wp ion-avatar[item-right],
 .item-wp ion-thumbnail[item-right] {
-  margin: 8px;
+  margin: 0;
 }
 
 .item-wp ion-avatar {
@@ -10584,14 +10584,14 @@ ion-label[floating] {
 }
 
 .label-ios {
-  margin: 11px 8px 11px 0;
+  margin: 11px 0 11px 0;
 }
 
 .label-ios + ion-input .text-input,
 .label-ios + ion-textarea .text-input,
 .label-ios + .input + .cloned-input {
   margin-left: 0;
-  width: calc(100% - (16px / 2) - 0);
+  width: calc(100% - (0 / 2) - 0);
 }
 
 .label-ios[stacked] {
@@ -10658,7 +10658,7 @@ ion-label[floating] {
 }
 
 .label-md {
-  margin: 13px 8px 13px 0;
+  margin: 13px 0 13px 0;
 }
 
 [text-wrap] .label-md {
@@ -10745,7 +10745,7 @@ ion-label[floating] {
 }
 
 .label-wp {
-  margin: 13px 8px 13px 0;
+  margin: 13px 0 13px 0;
 }
 
 .item-input .label-wp,
@@ -14248,7 +14248,7 @@ ion-select {
 }
 
 .select-ios {
-  padding: 11px 8px 11px 0;
+  padding: 11px 0 11px 0;
 }
 
 .select-ios .select-placeholder {
@@ -14276,7 +14276,7 @@ ion-select {
 }
 
 .select-md {
-  padding: 13px 8px 13px 0;
+  padding: 13px 0 13px 0;
 }
 
 .select-md .select-placeholder {
@@ -14311,8 +14311,8 @@ ion-select {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  margin: 13px 8px 13px 0;
-  padding: 0 8px;
+  margin: 13px 0 13px 0;
+  padding: 0 0;
   max-width: 100%;
   border: 2px solid rgba(0, 0, 0, 0.5);
   line-height: 3rem;
@@ -16270,7 +16270,7 @@ ion-toast {
 
 .item-ios .toggle-ios {
   margin: 0;
-  padding: 6px 8px 5px 0;
+  padding: 6px 0 5px 0;
 }
 
 .item-ios .toggle-ios[item-left] {
@@ -16349,7 +16349,7 @@ ion-toast {
 
 .item-md .toggle-md {
   margin: 0;
-  padding: 12px 8px 12px 0;
+  padding: 12px 0 12px 0;
   cursor: pointer;
 }
 
@@ -16453,7 +16453,7 @@ ion-toast {
 
 .item-wp .toggle-wp {
   margin: 0;
-  padding: 12px 8px 12px 0;
+  padding: 12px 0 12px 0;
   cursor: pointer;
 }
 
