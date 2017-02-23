@@ -28,9 +28,10 @@ export class CrTimerComponent {
   ngOnInit() { this.startTimer(); }
 
   startTimer() {
+    // whi always 5??
     console.log(this.time);
     let seconds = this.time * 60;
-    
+
     Observable.interval(1000)
       .map((x) => x + 1)
       .subscribe((x) => {

@@ -7,7 +7,7 @@ import { AboutPage } from '../about/about';
 // import {CrTimerComponent} from '../../components/cr-timer/cr-timer';
 // import { Data } from '../../providers/data';
 // import { Observable } from 'rxjs/Rx';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
   selector: 'page-home',
@@ -21,7 +21,7 @@ export class HomePage {
   public running: boolean = false;
   // public coffees: FirebaseListObservable<any>;
   public users: FirebaseListObservable<any>;
-  
+
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -30,10 +30,10 @@ export class HomePage {
     public af: AngularFire,
     public alertCtrl: AlertController
   ) {
-      // this.coffees = af.database.list('/coffees');
-      this.users = af.database.list('/users');
-      // console.log(this.coffees);
-      
+    // this.coffees = af.database.list('/coffees');
+    this.users = af.database.list('/users');
+    // console.log(this.coffees);
+
   }
   ionViewDidLoad() {
     // if user has no coffee and there is time, pop open this
@@ -58,47 +58,58 @@ export class HomePage {
   }
   stopRun() {
     console.log('Coffee run deleted');
-     this.running = false;
+    this.running = false;
     // this.running = true;
     // this.startTimer();
   }
 
-addCoffee(){
-let prompt = this.alertCtrl.create({
-    title: 'Howdy!',
-    // message: "So which coffee would you like?",
-    inputs: [
-      {
-        name: 'name',
-        placeholder: 'Who are you?'
-      },
-      {
-        name: 'coffee',
-        placeholder: '...and what would you like?'
-      },
-    ],
-    buttons: [
-      {
-        text: 'Cancel',
-        handler: data => {
-          console.log('Cancel clicked');
+  addCoffee() {
+    let prompt = this.alertCtrl.create({
+      title: 'Howdy!',
+      // message: "So which coffee would you like?",
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Who are you?'
+        },
+        {
+          name: 'coffee',
+          placeholder: '...and what would you like?'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            // check if already ordered
+            if (data.name != '' && data.coffee != '') {
+              if (this.users[data.name] != '') {
+                // console.log('no more');
+                // launch a toast!
+
+              } else {
+                this.users.push({
+                  // name: 'user', 
+                  user: data.name,
+                  coffee: data.coffee,
+                  isDone: false
+                });
+              }
+            }
+
+
+          }
         }
-      },
-      {
-        text: 'Save',
-        handler: data => {
-          this.users.push({
-            // name: 'user', 
-            user: data.name,
-            coffee: data.coffee,
-            isDone: false
-          });
-        }
-      }
-    ]
-  });
-  prompt.present();
-}
+      ]
+    });
+    prompt.present();
+  }
 
   toggleCheck(user) {
     // console.log(user.$key);
@@ -106,18 +117,18 @@ let prompt = this.alertCtrl.create({
     // user.isDone = !user.isDone;
     // let key = user.$key;
     // console.log(key);
-    
+
     // let itemObservable = this.af.database.object('/users');
     // console.log(itemObservable);
-  
-    this.users.update(user.$key,{ isDone: !user.isDone });
+
+    this.users.update(user.$key, { isDone: !user.isDone });
   }
   // saveItem(item) {
 
   // }
   update(user) {
     console.log(user);
-    
+
     // this.users[].update({ isDone: isDone });
   }
   // removeItem(item) {
@@ -129,8 +140,8 @@ let prompt = this.alertCtrl.create({
   // //     item: item
   // //   });
   // }
-  
-  
+
+
   presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
       // title: 'More Actions',
