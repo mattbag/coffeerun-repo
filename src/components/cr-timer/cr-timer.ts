@@ -29,7 +29,7 @@ export class CrTimerComponent {
 
   startTimer() {
     // whi always 5??
-    console.log(this.time);
+    // console.log(this.time);
     let seconds = this.time * 60;
 
     Observable.interval(1000)

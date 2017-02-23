@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController, ActionSheetController, AlertController } from 'ionic-angular';
+import { NavController, ActionSheetController, AlertController, ToastController } from 'ionic-angular';
 // import { AddItemPage } from '../add-item/add-item';
 // import { EditItemPage } from '../edit-item/edit-item';
 // import { ItemDetailPage } from '../item-detail/item-detail';
@@ -7,7 +7,7 @@ import { AboutPage } from '../about/about';
 // import {CrTimerComponent} from '../../components/cr-timer/cr-timer';
 // import { Data } from '../../providers/data';
 // import { Observable } from 'rxjs/Rx';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 @Component({
   selector: 'page-home',
@@ -17,14 +17,15 @@ export class HomePage {
 
   // public items = [];
   // public addModal = this.modalCtrl.create(AddItemPage);
-  // public timer: any;
-  public running: boolean = false;
+  public time: number;
+  public running;
   // public coffees: FirebaseListObservable<any>;
   public users: FirebaseListObservable<any>;
+  public timer_status: FirebaseObjectObservable<any>;
 
   constructor(
     public navCtrl: NavController,
-    public modalCtrl: ModalController,
+    public toast: ToastController,
     // public dataService: Data,
     public actionSheetCtrl: ActionSheetController,
     public af: AngularFire,
@@ -32,13 +33,29 @@ export class HomePage {
   ) {
     // this.coffees = af.database.list('/coffees');
     this.users = af.database.list('/users');
+    this.timer_status = af.database.object('/timer_status');
+    // this.running = this.timer_status.running;
+    this.timer_status.subscribe(timer_statusObj => {
+      // console.log(timer_statusObj.running)
+      // console.log(timer_statusObj.time);
+      this.running = timer_statusObj.running;
+      this.time = timer_statusObj.time;
+    });
+
+
+
     // console.log(this.coffees);
 
   }
   ionViewDidLoad() {
     // if user has no coffee and there is time, pop open this
     // this.addModal.present();
-    this.addCoffee();
+    // console.log(this.timer_status);
+
+    if (this.running) {
+      this.addCoffee();
+    }
+
   }
   // startTimer() {
   //   Observable.interval(1000)
@@ -53,12 +70,12 @@ export class HomePage {
   // }
   startRun() {
     // console.log('Coffee run start');
-    this.running = true;
+    // this.running = true;
     // this.startTimer();
   }
   stopRun() {
     console.log('Coffee run deleted');
-    this.running = false;
+    // this.running = false;
     // this.running = true;
     // this.startTimer();
   }
@@ -92,6 +109,7 @@ export class HomePage {
               if (this.users[data.name] != '') {
                 // console.log('no more');
                 // launch a toast!
+                this.presentToast(data.name);
 
               } else {
                 this.users.push({
@@ -109,6 +127,15 @@ export class HomePage {
       ]
     });
     prompt.present();
+  }
+
+  presentToast(bustedUser) {
+    let toast = this.toast.create({
+      message: bustedUser + 'Seems like you already ordered one!',
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
   }
 
   toggleCheck(user) {
@@ -179,7 +206,7 @@ export class HomePage {
           // role: 'destructive',
           handler: () => {
             console.log('Cancel run');
-            this.running = false;
+            // this.running = false;
           }
         },
         {
