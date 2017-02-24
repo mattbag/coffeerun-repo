@@ -17,7 +17,7 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-item *ngFor="let user of users | async ; let index = index" (click)="toggleCheck(user)">
+    <ion-item *ngFor="let user of coffees | async ; let index = index" (click)="toggleCheck(user)">
 
       <h2>{{user?.coffee}}</h2>
       <h3>- for {{user?.user}}</h3>

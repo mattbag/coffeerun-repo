@@ -19,8 +19,9 @@ export class HomePage {
   // public addModal = this.modalCtrl.create(AddItemPage);
   public time: number;
   public running;
-  // public coffees: FirebaseListObservable<any>;
+  public coffees: FirebaseListObservable<any>;
   public users: FirebaseListObservable<any>;
+  public users_list: FirebaseListObservable<any>;
   public timer_status: FirebaseObjectObservable<any>;
 
   constructor(
@@ -31,8 +32,9 @@ export class HomePage {
     public af: AngularFire,
     public alertCtrl: AlertController
   ) {
-    // this.coffees = af.database.list('/coffees');
+    this.coffees = af.database.list('/coffees');
     this.users = af.database.list('/users');
+    this.users_list = af.database.list('/users_list');
     this.timer_status = af.database.object('/timer_status');
     // this.running = this.timer_status.running;
    
@@ -53,20 +55,8 @@ export class HomePage {
     }
     });
 
-   
-
   }
-  // startTimer() {
-  //   Observable.interval(1000)
-  //     .map((x) => x + 1)
-  //     .subscribe((x) => {
-  //       this.timer = (60 * 5 - x) * 1000;
-  //       if (this.timer === 0) {
-  //         console.log('time over');
-  //         this.running = false;
-  //       }
-  //     })
-  // }
+ 
   startRun() {
     this.timer_status.update({running: true});
     // setTimeout(function(){
@@ -110,18 +100,63 @@ export class HomePage {
           handler: data => {
             // check if already ordered
             if (data.name != '' && data.coffee != '') {
-              if (this.users[data.name] != '') {
+              if (this.coffees[data.name] != '') {
                 // console.log('no more');
                 // launch a toast!
                 this.presentToast(data.name);
 
               } else {
-                this.users.push({
+                this.coffees.push({
                   // name: 'user', 
                   user: data.name,
                   coffee: data.coffee,
                   isDone: false
                 });
+              }
+            }
+
+
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+  //add new user
+  addUser() {
+    let prompt = this.alertCtrl.create({
+      title: 'Oh yeah!',
+      // message: "So which coffee would you like?",
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Who will join us?'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            // check if already created
+            // console.log(this.users_list);
+            
+            if (data.name != '') {
+              if (this.users_list[data.name] != '') {
+                console.log('ok new user');
+                this.users_list.push({
+                  // name: 'user', 
+                  user: data.name.toLowerCase()
+                });
+
+              } else {
+                // launch a toast!
+                // this.presentToast(data.name);
               }
             }
 
@@ -152,25 +187,14 @@ export class HomePage {
     // let itemObservable = this.af.database.object('/users');
     // console.log(itemObservable);
 
-    this.users.update(user.$key, { isDone: !user.isDone });
+    this.coffees.update(user.$key, { isDone: !user.isDone });
   }
-  // saveItem(item) {
+ 
+  // update(user) {
+  //   console.log(user);
 
   // }
-  update(user) {
-    console.log(user);
-
-    // this.users[].update({ isDone: isDone });
-  }
-  // removeItem(item) {
-
-  // }
-
-  // viewItem(item) {
-  // //   this.navCtrl.push(ItemDetailPage, {
-  // //     item: item
-  // //   });
-  // }
+ 
 
 
   presentActionSheet() {
@@ -193,16 +217,15 @@ export class HomePage {
         // },
         {
           text: 'Add 5 mins',
-          // role: 'destructive',
           handler: () => {
             console.log('adding time');
-            // this.running = false;
-            // this.stopRun();
-            // no restarting??
-            // this.running = true;
-            // this.startRun();
-            // this.timer = 0;
-            // this.startTimer();
+           
+          }
+        },
+        {
+          text: 'Add new person',
+          handler: () => {
+            this.addUser();
           }
         },
         {
