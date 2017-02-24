@@ -35,26 +35,25 @@ export class HomePage {
     this.users = af.database.list('/users');
     this.timer_status = af.database.object('/timer_status');
     // this.running = this.timer_status.running;
-    this.timer_status.subscribe(timer_statusObj => {
+   
+    // console.log(this.coffees);
+
+  } // end constructor
+
+  ionViewDidLoad() {
+    // if user has no coffee and there is time, pop open this
+// console.log(this.timer_status);
+ this.timer_status.subscribe(timer_statusObj => {
       // console.log(timer_statusObj.running)
       // console.log(timer_statusObj.time);
       this.running = timer_statusObj.running;
       this.time = timer_statusObj.time;
-    });
-
-
-
-    // console.log(this.coffees);
-
-  }
-  ionViewDidLoad() {
-    // if user has no coffee and there is time, pop open this
-    // this.addModal.present();
-    // console.log(this.timer_status);
-
-    if (this.running) {
+       if (this.running) {
       this.addCoffee();
     }
+    });
+
+   
 
   }
   // startTimer() {
@@ -69,13 +68,18 @@ export class HomePage {
   //     })
   // }
   startRun() {
+    this.timer_status.update({running: true});
+    // setTimeout(function(){
+    // // this.timer_status.update({time: 5});
+    // },1000)
     // console.log('Coffee run start');
     // this.running = true;
     // this.startTimer();
   }
   stopRun() {
     console.log('Coffee run deleted');
-    // this.running = false;
+    this.timer_status.update({running: false});
+    this.timer_status.update({time: 5});
     // this.running = true;
     // this.startTimer();
   }
@@ -131,7 +135,7 @@ export class HomePage {
 
   presentToast(bustedUser) {
     let toast = this.toast.create({
-      message: bustedUser + 'Seems like you already ordered one!',
+      message: bustedUser + '! Seems like you already ordered one!',
       duration: 3000,
       position: 'top'
     });
