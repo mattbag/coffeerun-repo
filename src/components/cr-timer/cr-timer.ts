@@ -82,7 +82,7 @@ export class CrTimerComponent {
 
         console.log('time over');
         this.subs.unsubscribe();
-        this.running = false;
+        this.timer_status.update({ running: false });
         // this.timer_status.update({ time: 300000 });
 
       } else {
