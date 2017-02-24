@@ -18,6 +18,7 @@ export class HomePage {
   // public items = [];
   // public addModal = this.modalCtrl.create(AddItemPage);
   public time: number;
+  public start_time: number;
   public running;
   public coffees: FirebaseListObservable<any>;
   public users: FirebaseListObservable<any>;
@@ -38,21 +39,27 @@ export class HomePage {
     this.users_list = af.database.list('/users_list');
     this.timer_status = af.database.object('/timer_status');
 
- this.timer_status.subscribe(timer_statusObj => {
+    this.timer_status.subscribe(timer_statusObj => {
       // console.log(timer_statusObj.running)
       // console.log(timer_statusObj.time);
       this.running = timer_statusObj.running;
-      this.time = timer_statusObj.time;
-     
-    });// end timer_status
-    console.log(this.running);
-    
-     if (this.running) {
+      // this.time = timer_statusObj.time;
+      this.start_time = timer_statusObj.start_time;
+       if (this.running) {
         this.addCoffee();
       }
+     
+    });// end timer_status
+    console.log('running? '+ this.running);
+    
+    //  if (this.running) {
+    //     this.addCoffee();
+    //   }
   } // end constructor
 
   ionViewDidLoad() {
+    console.log(this.start_time);
+    
     // if user has no coffee and there is time, pop open this
     // console.log(this.timer_status);
    
@@ -76,7 +83,11 @@ export class HomePage {
 //       })
 //   }
   startRun() {
-    this.timer_status.update({ time: 300000 });
+    let start_time = new Date().getTime();
+    console.log(start_time);
+
+    this.timer_status.update({ start_time: start_time });
+    // this.timer_status.update({ time: 300000 });
     this.timer_status.update({ running: true });
     // this.startTimer();
     // setTimeout(function(){
@@ -241,7 +252,7 @@ export class HomePage {
           text: 'Add 5 mins',
           handler: () => {
             console.log('adding time');
-            this.timer_status.update({ time: 600000 });
+            // this.timer_status.update({ time: 600000 });
 
           }
         },
