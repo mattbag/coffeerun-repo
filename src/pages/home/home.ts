@@ -129,16 +129,15 @@ export class HomePage {
         {
           text: 'Save',
           handler: data => {
-            // check if already ordered
+            // check if both input are full
             if (data.name != '' && data.coffee != '') {
-              if (this.coffees[data.name].toLowerCase() != '') {
+              if (this.coffees[data.name] != '') {
                 // console.log('no more');
                 // launch a toast!
                 this.presentToast(data.name);
 
               } else {
                 this.coffees.push({
-                  // name: 'user', 
                   user: data.name,
                   coffee: data.coffee,
                   isDone: false
