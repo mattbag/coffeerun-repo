@@ -25,6 +25,7 @@ export class HomePage {
   public users_list: FirebaseListObservable<any>;
   public timer_status: FirebaseObjectObservable<any>;
   public countdown: number;
+  public already_ordered: any[];
 
   constructor(
     public navCtrl: NavController,
@@ -39,63 +40,45 @@ export class HomePage {
     this.users_list = af.database.list('/users_list');
     this.timer_status = af.database.object('/timer_status');
 
+// this is a workaround to check whoever already ordered
+    this.coffees.subscribe(coffeesArray => {
+      this.already_ordered = [];
+      // console.log(coffeesArray);
+      coffeesArray.map(single => {
+        this.already_ordered.push(single.user.toLowerCase());
+      })
+      // console.log(this.already_ordered);
+
+    });
+
+
     this.timer_status.subscribe(timer_statusObj => {
       // console.log(timer_statusObj.running)
       // console.log(timer_statusObj.time);
       this.running = timer_statusObj.running;
       // this.time = timer_statusObj.time;
       this.start_time = timer_statusObj.start_time;
-       if (this.running) {
+      if (this.running) {
         this.addCoffee();
       }
-     
+
     });// end timer_status
-    console.log('running? '+ this.running);
     
-    //  if (this.running) {
-    //     this.addCoffee();
-    //   }
-  } // end constructor
+  } // ================================================= //  end constructor
 
   ionViewDidLoad() {
-    console.log(this.start_time);
-    
+    // console.log(this.start_time);
+
     // if user has no coffee and there is time, pop open this
     // console.log(this.timer_status);
-   
 
   }
-// startTimer() {
-//     // console.log(this.time);
-//     let seconds = this.time * 60;
-
-//     Observable.interval(1000)
-//       .map((x) => x + 1)
-//       .subscribe((x) => {
-//         this.countdown = (seconds - x) * 1000;
-//         if (this.countdown === 0) {
-//           console.log('time over');
-//           // this.running = false;
-//         }else{
-//           // update db
-//           this.timer_status.update({ time: this.countdown });
-//         }
-//       })
-//   }
+  
   startRun() {
     let start_time = new Date().getTime();
-    console.log(start_time);
-
+    // console.log(start_time);
     this.timer_status.update({ start_time: start_time });
-    // this.timer_status.update({ time: 300000 });
     this.timer_status.update({ running: true });
-    // this.startTimer();
-    // setTimeout(function(){
-    // // this.timer_status.update({time: 5});
-    // },1000)
-    // console.log('Coffee run start');
-    // this.running = true;
-    // this.startTimer();
   }
   stopRun() {
     console.log('Coffee run deleted');
@@ -131,14 +114,17 @@ export class HomePage {
           handler: data => {
             // check if both input are full
             if (data.name != '' && data.coffee != '') {
-              if (this.coffees[data.name] != '') {
+              let lowerName = data.name.toLowerCase();
+              console.log(this.already_ordered.indexOf(lowerName));
+
+              if (this.already_ordered.indexOf(lowerName) > -1) {
                 // console.log('no more');
                 // launch a toast!
                 this.presentToast(data.name);
 
               } else {
                 this.coffees.push({
-                  user: data.name,
+                  user: lowerName,
                   coffee: data.coffee,
                   isDone: false
                 });
