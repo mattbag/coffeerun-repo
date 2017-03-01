@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, ActionSheetController, AlertController, ToastController } from 'ionic-angular';
-// import { AddItemPage } from '../add-item/add-item';
-// import { EditItemPage } from '../edit-item/edit-item';
-// import { ItemDetailPage } from '../item-detail/item-detail';
 import { AboutPage } from '../about/about';
-import { LoginPage } from '../pages/login/login';
-// import {CrTimerComponent} from '../../components/cr-timer/cr-timer';
-// import { Data } from '../../providers/data';
+import { LoginPage } from '../login/login';
 // import { Observable } from 'rxjs/Rx';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { AuthService } from '../../providers/auth-service';
+// import { AuthStorage} from '../../providers/auth-storage';
 
 @Component({
   selector: 'page-home',
@@ -27,6 +24,7 @@ export class HomePage {
   public timer_status: FirebaseObjectObservable<any>;
   public countdown: number;
   public already_ordered: any[];
+  public username: string;
 
   constructor(
     public navCtrl: NavController,
@@ -34,14 +32,24 @@ export class HomePage {
     // public dataService: Data,
     public actionSheetCtrl: ActionSheetController,
     public af: AngularFire,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    // private _authStorage : AuthStorage,
+    private _auth: AuthService
   ) {
+    // =================     ==================  fetching from firebase
     this.coffees = af.database.list('/coffees');
-    this.users = af.database.list('/users');
+    // this.users = af.database.list('/users');
     this.users_list = af.database.list('/users_list');
     this.timer_status = af.database.object('/timer_status');
+    // ======================= =========================fetching user stuff from local
+    this._auth.getUserFromStorage().then(user => {
+      this.username = user.name.username;
+      // console.log(this.username);
 
-// this is a workaround to check whoever already ordered
+    });
+
+
+    // this is a workaround to check whoever already ordered
     this.coffees.subscribe(coffeesArray => {
       this.already_ordered = [];
       // console.log(coffeesArray);
@@ -52,7 +60,7 @@ export class HomePage {
 
     });
 
-
+    // ====================================== timer stuff
     this.timer_status.subscribe(timer_statusObj => {
       // console.log(timer_statusObj.running)
       // console.log(timer_statusObj.time);
@@ -64,17 +72,18 @@ export class HomePage {
       }
 
     });// end timer_status
-    
+
   } // ================================================= //  end constructor
 
   ionViewDidLoad() {
+    // console.log('Logged as: ' + this._auth.displayName());
     // console.log(this.start_time);
 
     // if user has no coffee and there is time, pop open this
     // console.log(this.timer_status);
 
   }
-  
+
   startRun() {
     let start_time = new Date().getTime();
     // console.log(start_time);
@@ -91,16 +100,16 @@ export class HomePage {
 
   addCoffee() {
     let prompt = this.alertCtrl.create({
-      title: 'Howdy!',
-      // message: "So which coffee would you like?",
+      title: 'Howdy '+this.username+'!',
+      message: "...which coffee would you like?",
       inputs: [
-        {
-          name: 'name',
-          placeholder: 'Who are you?'
-        },
+        // {
+        //   name: 'name',
+        //   placeholder: 'Who are you?'
+        // },
         {
           name: 'coffee',
-          placeholder: '...and what would you like?'
+          placeholder: '...please do tell!'
         },
       ],
       buttons: [
@@ -110,22 +119,28 @@ export class HomePage {
             console.log('Cancel clicked');
           }
         },
+        // {
+        //   text: 'Favorite',
+        //   handler: data => {
+        //     console.log('Adding favorite');
+        //   }
+        // },
         {
-          text: 'Save',
+          text: 'Go!',
           handler: data => {
             // check if both input are full
-            if (data.name != '' && data.coffee != '') {
-              let lowerName = data.name.toLowerCase();
-              console.log(this.already_ordered.indexOf(lowerName));
+            if (data.coffee != '') {
+              // let lowerName = data.name.toLowerCase();
+              // console.log(this.already_ordered.indexOf(lowerName));
 
-              if (this.already_ordered.indexOf(lowerName) > -1) {
+              if (this.already_ordered.indexOf(this.username) > -1) {
                 // console.log('no more');
                 // launch a toast!
-                this.presentToast(data.name);
+                this.presentToast(this.username);
 
               } else {
                 this.coffees.push({
-                  user: lowerName,
+                  user: this.username,
                   coffee: data.coffee,
                   isDone: false
                 });
@@ -197,22 +212,9 @@ export class HomePage {
   }
 
   toggleCheck(user) {
-    // console.log(user.$key);
-    // console.log(key);
-    // user.isDone = !user.isDone;
-    // let key = user.$key;
-    // console.log(key);
-
-    // let itemObservable = this.af.database.object('/users');
-    // console.log(itemObservable);
 
     this.coffees.update(user.$key, { isDone: !user.isDone });
   }
-
-  // update(user) {
-  //   console.log(user);
-
-  // }
 
 
 
@@ -248,19 +250,31 @@ export class HomePage {
             this.addUser();
           }
         },
-        {
-          text: 'Cancel Run',
-          // role: 'destructive',
-          handler: () => {
-            console.log('Cancel run');
-            // this.running = false;
-          }
-        },
+        // {
+        //   text: 'Cancel Run',
+        //   // role: 'destructive',
+        //   handler: () => {
+        //     console.log('Cancel run');
+        //     // this.running = false;
+        //   }
+        // },
         {
           text: 'About',
           handler: () => {
             console.log('About page clicked');
             this.navCtrl.push(AboutPage);
+          }
+        },
+        {
+          text: 'Logout',
+          // role: 'cancel',
+          handler: () => {
+            console.log('Logging out, removing storage token');
+            this.navCtrl.setRoot(LoginPage);
+            // this.navCtrl.push(LoginPage);
+            this._auth.removeLoginToken();
+            this._auth.signOut();
+
           }
         },
         {

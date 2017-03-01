@@ -1,6 +1,6 @@
 {
-  "name": "SnapDo",
-  "short_name": "Ionic",
+  "name": "CoffeeRun",
+  "short_name": "coffeerun",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{

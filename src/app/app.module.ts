@@ -8,6 +8,8 @@ import {CrTimerComponent} from '../components/cr-timer/cr-timer';
 
 import { AngularFireModule } from 'angularfire2';
 import { AuthService } from '../providers/auth-service';
+import { AuthStorage } from '../providers/auth-storage';
+import {Storage} from '@ionic/storage';
 
 export const firebaseConfig = {
    apiKey: "AIzaSyDLIF2G_wIdg1jf8jI1xRzRMhnQlxRlekY",
@@ -37,6 +39,6 @@ export const firebaseConfig = {
     AboutPage,
     CrTimerComponent
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthService]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthService, AuthStorage,Storage]
 })
 export class AppModule {}
