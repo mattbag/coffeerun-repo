@@ -2,13 +2,8 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { AddItemPage } from '../pages/add-item/add-item';
-import { EditItemPage } from '../pages/edit-item/edit-item';
-import { ItemDetailPage } from '../pages/item-detail/item-detail';
 import { AboutPage } from '../pages/about/about';
 import {CrTimerComponent} from '../components/cr-timer/cr-timer';
-// import {Storage} from '@ionic/storage';
-// import { Data } from '../providers/data';
 
 import { AngularFireModule } from 'angularfire2';
 
@@ -24,9 +19,6 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     HomePage,
-    AddItemPage,
-    ItemDetailPage,
-    EditItemPage,
     AboutPage,
     CrTimerComponent
   ],
@@ -38,9 +30,6 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     HomePage,
-    AddItemPage,
-    ItemDetailPage,
-    EditItemPage,
     AboutPage,
     CrTimerComponent
   ],
