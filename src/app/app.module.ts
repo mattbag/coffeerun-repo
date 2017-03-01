@@ -2,10 +2,12 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
 import { AboutPage } from '../pages/about/about';
 import {CrTimerComponent} from '../components/cr-timer/cr-timer';
 
 import { AngularFireModule } from 'angularfire2';
+import { AuthService } from '../providers/auth-service';
 
 export const firebaseConfig = {
    apiKey: "AIzaSyDLIF2G_wIdg1jf8jI1xRzRMhnQlxRlekY",
@@ -20,6 +22,7 @@ export const firebaseConfig = {
     MyApp,
     HomePage,
     AboutPage,
+    LoginPage,
     CrTimerComponent
   ],
   imports: [
@@ -30,9 +33,10 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     HomePage,
+    LoginPage,
     AboutPage,
     CrTimerComponent
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthService]
 })
 export class AppModule {}

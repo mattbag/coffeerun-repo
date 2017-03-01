@@ -21292,3 +21292,12 @@ ion-app .toast-wp .toast-wrapper.toast-top {
 page-home ion-item-sliding:last-of-type ion-item-options {
   border: none !important;
 }
+
+page-login .scroll-content {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}

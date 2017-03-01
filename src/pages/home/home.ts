@@ -4,6 +4,7 @@ import { NavController, ActionSheetController, AlertController, ToastController 
 // import { EditItemPage } from '../edit-item/edit-item';
 // import { ItemDetailPage } from '../item-detail/item-detail';
 import { AboutPage } from '../about/about';
+import { LoginPage } from '../pages/login/login';
 // import {CrTimerComponent} from '../../components/cr-timer/cr-timer';
 // import { Data } from '../../providers/data';
 // import { Observable } from 'rxjs/Rx';
